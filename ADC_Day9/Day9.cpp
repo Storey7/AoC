@@ -90,6 +90,8 @@ int findWeakness(vector<long long int> cypher, long long int target)
 				int min = cypher[searchIndex];
 				int max = cypher[i];
 
+				cout << searchIndex << " " << i << endl;
+
 				for (int k = searchIndex; k < i; k++) {
 					if (cypher[k] > max)
 						max = cypher[k];
