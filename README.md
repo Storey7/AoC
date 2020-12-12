@@ -8,7 +8,7 @@ My solutions for the 2020 edition of [Advent of Code](!https://adventofcode.com/
 |-----------|--------|-------|
 | Day 1     | :star: | :star:|
 | Day 2     | :star: | :star:|
-| Day 3     | :start | :start|
+| Day 3     | :star: | :star:|
 | Day 4     | :star: | :star:|
 | Day 5     | :star: | :star:|
 | Day 6     | :star: | :star:|
@@ -16,7 +16,7 @@ My solutions for the 2020 edition of [Advent of Code](!https://adventofcode.com/
 | Day 8     | :star: | :star:|
 | Day 9     | :star: | :star:|
 | Day 10    | :star: | :star:|
-| Day 11    | :star: |      |
+| Day 11    | :star: |       |
 | Day 12    | :star: | :star:|
 | Day 13    | | |
 | Day 14    | | |
