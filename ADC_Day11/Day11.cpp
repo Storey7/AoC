@@ -154,53 +154,99 @@ int modelSeatsLineOfSight(vector<string> seatMap)
 int countSeatsLineOfSight(vector<string>& seatMap, int i, int j) {
 
 	int count = 0;
+	//x == Row, y == column.
+	//(i, j) == current (row, column)
 
+	//UP
 	for (int x = i-1; x > 0; x--) {
+		if (seatMap[x][j] == 'L') {
+			break;
+		}
 		if (seatMap[x][j] == '#') {
 			count++;
 			break;
 		}
 	}
-	for (int y = i-1; y > 0; y--) {
-		if (seatMap[i][y] == '#') {
-			count++;
-			break;
-		}
-	}
 
-	for (int x = i+1; x < seatMap.size() - 1; x++) {
-		if (seatMap[x][j] == '#') {
-			count++;
-			break;
-		}
-	}
-	for (int y = j+1; y < seatMap.size() - 1; y++) {
-		if (seatMap[i][y] == '#') {
-			count++;
-			break;
-		}
-	}
-
-	for (int x = i-1; x > 0; x--){
-		if (seatMap[x][x] == '#') {
-			count++;
-			break;
-		}
-	}
+	//LEFT
 	for (int y = j-1; y > 0; y--) {
-		if (seatMap[y][y] == '#') {
+		if (seatMap[i][y] == 'L') {
+			break;
+		}
+		if (seatMap[i][y] == '#') {
 			count++;
 			break;
 		}
 	}
+
+	//DOWN
+	for (int x = i+1; x < seatMap.size() - 1; x++) {
+		if (seatMap[x][j] == 'L') {
+			break;
+		}
+
+		if (seatMap[x][j] == '#') {
+			count++;
+			break;
+		}
+	}
+
+	//RIGHT
+	for (int y = j+1; y < seatMap.size() - 1; y++) {
+		if (seatMap[i][y] == 'L') {
+			break;
+		}
+
+		if (seatMap[i][y] == '#') {
+			count++;
+			break;
+		}
+	}
+
+	int offset = 0;
+	for (int x = i-1; x > 0; x--){
+		offset--;
+		if (seatMap[x][j+offset] == 'L') {
+			break;
+		}
+
+		if (seatMap[x][j+offset] == '#') {
+			count++;
+			break;
+		}
+	}
+	offset = 0;
+	for (int y = j-1; y > 0; y--) {
+		offset--;
+		if (seatMap[i+offset][y] == 'L') {
+			break;
+		}
+
+		if (seatMap[i+offset][y] == '#') {
+			count++;
+			break;
+		}
+	}
+	offset = 0;
 	for (int x = i+1; x < seatMap.size()-1; x++) {
-		if (seatMap[x][x] == '#') {
+		offset++;
+		if (seatMap[x][j+offset] == 'L') {
+			break;
+		}
+
+		if (seatMap[x][j+ offset] == '#') {
 			count++;
 			break;
 		}
 	}
+	offset = 0;
 	for (int y = j + 1; y < seatMap[0].length()-1; y++) {
-		if (seatMap[y][y] == '#') {
+		offset++;
+		if (seatMap[i+offset][y] == 'L') {
+			break;
+		}
+
+		if (seatMap[i+offset][y] == '#') {
 			count++;
 			break;
 		}

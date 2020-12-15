@@ -1,6 +1,6 @@
 # Advent of Code 2020
 
-My solutions for the 2020 edition of [Advent of Code](!https://adventofcode.com/).
+My solutions for the 2020 edition of [Advent of Code](!https://adventofcode.com/). All done using C++. 
 
 # Completed
 
@@ -18,9 +18,9 @@ My solutions for the 2020 edition of [Advent of Code](!https://adventofcode.com/
 | Day 10    | :star: | :star:|
 | Day 11    | :star: |       |
 | Day 12    | :star: | :star:|
-| Day 13    | | |
-| Day 14    | | |
-| Day 15    | | |
+| Day 13    | :star: | |
+| Day 14    | :star: | |
+| Day 15    | :star: | :star: |
 | Day 16    | | |
 | Day 17    | | |
 | Day 18    | | |
