@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Day17.cpp">
+    <ClCompile Include="Day18.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="day17_input.txt">
+    <Text Include="day18_input.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

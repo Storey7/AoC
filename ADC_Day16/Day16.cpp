@@ -172,7 +172,7 @@ int determineFields(vector<string> &input) {
 	}
 
 	vector<int> currentColumn;
-	for(int i = 0; i < nearbyTickets[0].size; i++;{
+	for(int i = 0; i < nearbyTickets[0].size(); i++;{
 		for (auto row : nearbyTickets) {
 			currentColumn.push_back(row[i]);
 		}

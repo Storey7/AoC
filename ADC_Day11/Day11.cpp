@@ -43,7 +43,7 @@ vector<string> parseInput(string path)
 	return inputVector;
 }
 
-int modelSeats(vector<string> seatMap)
+int modelSeats(vector<string> seatMap, int limit)
 {
 	vector<string> currentMap = seatMap;
 	vector<string> prevMap;
@@ -55,8 +55,15 @@ int modelSeats(vector<string> seatMap)
 		for (int i = 1; i < seatMap.size() - 1; i++) {
 			for (int j = 1; j < seatMap[i].size() - 1; j++)
 			{
-				if (seatMap[i][j] == 'L') {
+				if (limit == 4) {
 					seatsCount = countSeats(seatMap, i, j);
+				}
+				else if (limit == 5) {
+					seatsCount = countSeatsLineOfSight(seatMap, i, j);
+				}
+
+				if (seatMap[i][j] == 'L') {
+					
 					if (seatsCount == 0)
 					{
 						currentMap[i][j] = '#';
@@ -64,8 +71,7 @@ int modelSeats(vector<string> seatMap)
 				}
 
 				if (seatMap[i][j] == '#') {
-					seatsCount = countSeats(seatMap, i, j);
-					if (seatsCount >= 4)
+					if (seatsCount >= limit)
 					{
 						currentMap[i][j] = 'L';
 					}
@@ -74,7 +80,6 @@ int modelSeats(vector<string> seatMap)
 		}
 		seatMap = currentMap;
 	}
-
 
 	for (int i = 1; i < seatMap.size() - 1; i++) {
 		for (int j = 1; j < seatMap[i].size() - 1; j++) {
@@ -89,7 +94,6 @@ int modelSeats(vector<string> seatMap)
 int countSeats(vector<string>& seatMap, int i, int j) {
 
 	int count = 0;
-
 	for (int x = i-1; x <= i + 1; x++) {
 		for (int y = j-1; y <= j + 1; y++) {
 			if (x == i && y == j)
@@ -103,154 +107,29 @@ int countSeats(vector<string>& seatMap, int i, int j) {
 	return count;
 }
 
-int modelSeatsLineOfSight(vector<string> seatMap)
-{
-	vector<string> currentMap = seatMap;
-	vector<string> prevMap;
-	int occupied = 0;
-	int seatsCount;
-
-	while (currentMap != prevMap) {
-		prevMap = currentMap;
-		for (int i = 1; i < seatMap.size() - 1; i++) {
-			for (int j = 1; j < seatMap[i].size() - 1; j++)
-			{
-				if (seatMap[i][j] == 'L') {
-					seatsCount = countSeatsLineOfSight(seatMap, i, j);
-					if (seatsCount == 0)
-					{
-						currentMap[i][j] = '#';
-					}
-				}
-
-				if (seatMap[i][j] == '#') {
-					seatsCount = countSeatsLineOfSight(seatMap, i, j);
-					if (seatsCount >= 5)
-					{
-						currentMap[i][j] = 'L';
-					}
-				}
-			}
-		}
-		seatMap = currentMap;
-
-		for (auto line : seatMap) {
-			cout << line << endl;
-		}
-		cout << endl;
-	}
-
-
-	for (int i = 1; i < seatMap.size() - 1; i++) {
-		for (int j = 1; j < seatMap[i].size() - 1; j++) {
-			if (seatMap[i][j] == '#')
-				occupied++;
-		}
-	}
-
-	return occupied;
-}
-
 int countSeatsLineOfSight(vector<string>& seatMap, int i, int j) {
 
 	int count = 0;
-	//x == Row, y == column.
-	//(i, j) == current (row, column)
 
-	//UP
-	for (int x = i-1; x > 0; x--) {
-		if (seatMap[x][j] == 'L') {
-			break;
-		}
-		if (seatMap[x][j] == '#') {
-			count++;
-			break;
+	for (int x = -1; x <= 1; x++) {
+		for (int y = -1; y <= 1; y++) {
+			if (!(x == 0 && y == 0))
+			{
+				int rr = i + x;
+				int cc = j + y;
+
+				while ((rr >= 0 && rr < seatMap.size()-1 && cc >= 0 && cc < seatMap.size()-1
+					&& seatMap[rr][cc] == '.')) {
+					rr = rr + x;
+					cc = cc + y;
+				}
+				if (rr >= 0 && rr < seatMap.size()  && cc >= 0 && cc < seatMap.size() && seatMap[rr][cc] == '#') {
+					count++;
+				}
+			}
 		}
 	}
 
-	//LEFT
-	for (int y = j-1; y > 0; y--) {
-		if (seatMap[i][y] == 'L') {
-			break;
-		}
-		if (seatMap[i][y] == '#') {
-			count++;
-			break;
-		}
-	}
-
-	//DOWN
-	for (int x = i+1; x < seatMap.size() - 1; x++) {
-		if (seatMap[x][j] == 'L') {
-			break;
-		}
-
-		if (seatMap[x][j] == '#') {
-			count++;
-			break;
-		}
-	}
-
-	//RIGHT
-	for (int y = j+1; y < seatMap.size() - 1; y++) {
-		if (seatMap[i][y] == 'L') {
-			break;
-		}
-
-		if (seatMap[i][y] == '#') {
-			count++;
-			break;
-		}
-	}
-
-	int offset = 0;
-	for (int x = i-1; x > 0; x--){
-		offset--;
-		if (seatMap[x][j+offset] == 'L') {
-			break;
-		}
-
-		if (seatMap[x][j+offset] == '#') {
-			count++;
-			break;
-		}
-	}
-	offset = 0;
-	for (int y = j-1; y > 0; y--) {
-		offset--;
-		if (seatMap[i+offset][y] == 'L') {
-			break;
-		}
-
-		if (seatMap[i+offset][y] == '#') {
-			count++;
-			break;
-		}
-	}
-	offset = 0;
-	for (int x = i+1; x < seatMap.size()-1; x++) {
-		offset++;
-		if (seatMap[x][j+offset] == 'L') {
-			break;
-		}
-
-		if (seatMap[x][j+ offset] == '#') {
-			count++;
-			break;
-		}
-	}
-	offset = 0;
-	for (int y = j + 1; y < seatMap[0].length()-1; y++) {
-		offset++;
-		if (seatMap[i+offset][y] == 'L') {
-			break;
-		}
-
-		if (seatMap[i+offset][y] == '#') {
-			count++;
-			break;
-		}
-	}
 	return count;
 }
 
@@ -258,9 +137,9 @@ int main()
 {
 	vector<string> input = parseInput("day11_input.txt");
 
-	//int occupied = modelSeats(input);
-	int result2 = modelSeatsLineOfSight(input);
-	//cout << "Part 1 - " << occupied << endl;
+	int result1 = modelSeats(input, 4);
+	int result2 = modelSeats(input, 5);
+	cout << "Part 1 - " << result1 << endl;
 	cout << "Part 2 - " << result2 << endl;
 
 	cin.get();

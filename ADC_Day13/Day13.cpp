@@ -85,9 +85,11 @@ int getBusID(vector<string> input)
 ll getEarliestTimestamp(vector<string> input)
 {
 	map<int,int> buses;
+	vector<pair<int, int>> constraints;
 	for (int i = 1; i < input.size(); i++)
 	{
 		int index = 0;
+		int b;
 		stringstream ss(input[i]);
 		while (ss.good())
 		{
@@ -97,35 +99,13 @@ ll getEarliestTimestamp(vector<string> input)
 				index++;
 				continue;
 			}
-			buses.insert(pair<int,int>(index, stoi(busTime)));
+
+			b = stoi(busTime);
+			buses.insert(pair<int,int>(index, b));
+			constraints.push_back(pair<int, int>(abs((b - index) % b), b));
 			index++;
 		}
 	}
-
-	map<int, int>::iterator itr;
-	bool found = false;
-	int count = 0;
-	int target = buses.size()-1;
-	ll starter = 100000000000000 / 23;
-	ll timestamp = starter * 23;
-	while (!found) {
-		count = 0;
-		if (timestamp > 100000000000000) {
-			for (itr = next(buses.begin(), 1); itr != buses.end(); itr++) {
-				if ((timestamp + (itr->first)) % itr->second != 0) {
-					break;
-				}
-				count++;
-			}
-
-			if (count == target) {
-				return(timestamp + prev(buses.end(), 1)->first);
-			}
-		}
-		timestamp += buses.begin()->second;
-
-	}
-
 	return 0;
 }
 
@@ -133,8 +113,8 @@ int main()
 {
 	vector<string> input = parseInput("day13_input.txt");
 
-	/*int result1 = getBusID(input);
-	cout << "Part 1 - " << result1 << endl;*/
+	int result1 = getBusID(input);
+	cout << "Part 1 - " << result1 << endl;
 	ll result2 = getEarliestTimestamp(input);
 	cout << "Part 2 - " << result2 << endl;
 

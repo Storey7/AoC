@@ -18,13 +18,13 @@ I fell behind on day 16 due to Christmas madness, but I'm going back through the
 | Day 8     | :star: | :star:|
 | Day 9     | :star: | :star:|
 | Day 10    | :star: | :star:|
-| Day 11    | :star: |       |
+| Day 11    | :star: | :star:|
 | Day 12    | :star: | :star:|
 | Day 13    | :star: | |
 | Day 14    | :star: | |
 | Day 15    | :star: | :star: |
-| Day 16    | | |
-| Day 17    | | |
+| Day 16    | :star: | |
+| Day 17    | :star: | :star: |
 | Day 18    | | |
 | Day 19    | | |
 | Day 20    | | |
