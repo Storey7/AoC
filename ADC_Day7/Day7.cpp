@@ -4,8 +4,9 @@
 #include <string>
 #include <vector>
 #include <regex>
-#include <map>
+#include <unordered_map>
 #include <queue>
+#include <set>
 
 
 using namespace std;
@@ -31,9 +32,11 @@ vector<string> parseInput(string path)
 	return inputVector;
 }
 
-map<string, vector<pair<string, int>>> parseRules(vector<string> input)
+//This is a pretty strange function and I will come back and fix it some day. 
+// It makes 2 maps of bag - parents and of bag - contents
+unordered_map<string, vector<pair<string, int>>> parseRules(vector<string> input, unordered_map<string, vector<string>> &parents)
 {
-	map<string, vector<pair<string, int>>> rules;
+	unordered_map<string, vector<pair<string, int>>> rules;
 
 	for (string rule : input) {
 		regex colorRx("(.+?) bags contain");
@@ -51,34 +54,60 @@ map<string, vector<pair<string, int>>> parseRules(vector<string> input)
 			i != std::sregex_iterator();
 			++i) {
 			containedIn = *i;
+			
+			parents[containedIn[2]].push_back(container);
 			rules[container].push_back({ containedIn[2], stoi(containedIn[1]) });
-			cout << container << " - " << containedIn[2] << " " << containedIn[1] << endl;
 		}
 	}
 	return rules;
 }
 
-int countShinyGold(vector<int> rules)
+int countParents(unordered_map<string, vector<string>> &parents)
 {
 	int count = 0;
+	set<string> seen;
+	deque<string> q;
 
+	q.push_back("shiny gold");
 
-	return count;
+	while (q.size() > 0)
+	{
+		string x = q.front(); q.pop_front();
+		if (seen.find(x) != seen.end()) {
+			continue;
+		}
+		seen.insert(x);
+		for (string y : parents[x]) {
+			q.push_back(y);
+		}
+	}
+
+	return seen.size() - 1;
+}
+
+//This recursive algorithm is very much taken from Jonathan Paulson's solution. 
+//https://github.com/jonathanpaulson/AdventOfCode/blob/master/2020/7.py
+//The first time I had to use help!
+int size(string bag, unordered_map<string, vector<pair<string, int>>> &rules)
+{
+	int ans = 1;
+	for (pair<string, int> child : rules[bag]) {
+		ans += child.second * size(child.first, rules);
+	}
+	return ans;
 }
 
 int main()
 {
 	vector<string> rulesInput = parseInput("day7_input.txt");
+	unordered_map<string, vector<string>> parents;
+	unordered_map<string, vector<pair<string, int>>> rules = parseRules(rulesInput, parents);
 
-	map<string, vector<pair<string, int>>> rules = parseRules(rulesInput);
+	int result1 = countParents(parents);
+	int result2 = size("shiny gold", rules);
 
-	for (auto rule : rules)
-	{
-		cout << rule.first << " : " << rule.second[0].first << endl;
-	}
-	//countShinyGold(rules);
-	//cout << "Part 1 - " << result1 << endl;
-	//cout << "Part 2 - " << result2 << endl;
+	cout << "Part 1 - " << result1 << endl;
+	cout << "Part 2 - " << result2-1 << endl;
 
 	cin.get();
 	return 0;

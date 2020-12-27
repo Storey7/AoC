@@ -36,42 +36,7 @@ vector<int> parseInput(string path)
 	return inputVector;
 }
 
-int getSequence(int target, vector<int> &startingNumbers)
-{
-	int result = 0;
-	vector<int> numberSequence = startingNumbers;
-	set<int> alreadyAdded;
-
-	for (int i = 0; i < numberSequence.size() - 1; i++) {
-		alreadyAdded.insert(numberSequence[i]);
-	}
-	
-	for (int i = startingNumbers.size() - 1; i < target; i++)
-	{
-		if (alreadyAdded.find(numberSequence[i]) == alreadyAdded.end())
-		{
-			alreadyAdded.insert(numberSequence[i]);
-			numberSequence.push_back(0);
-		}
-		else {
-			int difference = 0;
-			for (int j = i-1; j >= 0; j--)
-			{
-				if (numberSequence[j] == numberSequence[i]) {
-					difference = i - j;
-					numberSequence.push_back(difference);
-					break;
-				}
-			}
-		}
-	}
-
-	result = numberSequence[target-1];
-
-	return result;
-}
-
-int getSequenceOptimal(int target, vector<int>& startingNumbers)
+int getSequence(int target, vector<int>& startingNumbers)
 {
 	int result = 0;
 	vector<int> numberSequence = startingNumbers;
@@ -106,7 +71,7 @@ int main()
 
 	int result1 = getSequence(2020, startingNumbers);
 	cout << "Part 1 - " << result1 << endl;
-	int result2 = getSequenceOptimal(30000000, startingNumbers);
+	int result2 = getSequence(30000000, startingNumbers); //20 seconds. (Was 15 mins using part 1 method.)
 	cout << "Part 2 - " << result2 << endl;
 
 	cin.get();

@@ -1,6 +1,8 @@
 # Advent of Code 2020
 
-My solutions for the 2020 edition of [Advent of Code](!https://adventofcode.com/). All done using C++. 
+My solutions for the 2020 edition of [Advent of Code](!https://adventofcode.com/). All done using C++, mostly as a learning exercise. I think the amount of string parsing and list wrangling would make this a far better task for python, but its been an interesting challenge, and I've learned a lot. 
+
+I fell behind on day 16 due to Christmas madness, but I'm going back through them now and hope to have my 50 stars by 2021. 
 
 # Completed
 
@@ -12,7 +14,7 @@ My solutions for the 2020 edition of [Advent of Code](!https://adventofcode.com/
 | Day 4     | :star: | :star:|
 | Day 5     | :star: | :star:|
 | Day 6     | :star: | :star:|
-| Day 7     |        |       |
+| Day 7     | :star: | :star:|
 | Day 8     | :star: | :star:|
 | Day 9     | :star: | :star:|
 | Day 10    | :star: | :star:|
