@@ -19,13 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Day22.cpp" />
+    <Text Include="day24_input.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Day24.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{bd62917d-9c7d-44fc-b331-a8e1673eed9f}</ProjectGuid>
-    <RootNamespace>ADC_Day23</RootNamespace>
+    <ProjectGuid>{c97db28b-9d21-4494-b3f8-f1d162910af5}</ProjectGuid>
+    <RootNamespace>ADC_Day24</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
